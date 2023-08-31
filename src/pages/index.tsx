@@ -1,9 +1,20 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import React from "react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import axiosInstance from "../app/config/axios";
+import { Button } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
+  React.useEffect(() => {
+    const testApi = async () => {
+      const resp = await axiosInstance.get("/people");
+      console.log(resp.data, ">>>>data");
+    };
+    testApi();
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +29,7 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -51,6 +62,7 @@ const Home: NextPage = () => {
             </p>
           </a>
         </div>
+        <Button colorScheme="blue">Test</Button>
       </main>
 
       <footer className={styles.footer}>
@@ -59,14 +71,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
