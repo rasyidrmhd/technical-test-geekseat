@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { PeopleResponse } from "interfaces/people.interface";
 import usePagination from "hooks/usePagination";
+import Loader from "@/components/Loader";
 
 const Home: NextPage = () => {
   const [data, setData] = React.useState<PeopleResponse | null>(null);
@@ -110,14 +111,13 @@ const Home: NextPage = () => {
               {isLoading ? (
                 <Tr>
                   <Td colSpan={7} textAlign="center" p="50px">
-                    <Spinner
-                      color="blue.500"
-                      thickness="4px"
-                      speed="0.65s"
-                      size="lg"
-                      emptyColor="gray"
-                    />
-                    <Text mt="10px">Loading data</Text>
+                    <Loader size="lg" />
+                  </Td>
+                </Tr>
+              ) : data?.results.length === 0 ? (
+                <Tr>
+                  <Td colSpan={7} textAlign="center" p="50px">
+                    No data
                   </Td>
                 </Tr>
               ) : (
