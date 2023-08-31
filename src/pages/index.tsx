@@ -14,12 +14,15 @@ import {
   Text,
   Button,
   Input,
+  Skeleton,
 } from "@chakra-ui/react";
 import { PeopleResponse } from "interfaces/people.interface";
 import usePagination from "hooks/usePagination";
 import Loader from "@/components/Loader";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
   const [data, setData] = React.useState<PeopleResponse | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>("");
@@ -55,6 +58,18 @@ const Home: NextPage = () => {
     return () => clearTimeout(delay);
   }, [currentPage, search]);
 
+  const columns = React.useMemo(() => {
+    return [
+      { label: "no", width: "5%" },
+      { label: "name", width: "10%" },
+      { label: "films", width: "15%" },
+      { label: "species", width: "15%" },
+      { label: "starships", width: "20%" },
+      { label: "vehicles", width: "20%" },
+      { label: "action", width: "10%" },
+    ];
+  }, []);
+
   const getNumber = React.useCallback(
     (number: number) => {
       return (currentPage - 1) * 10 + number + 1;
@@ -67,7 +82,6 @@ const Home: NextPage = () => {
       p="40px"
       w="100vw"
       minH="100vh"
-      inset={0}
       gap="20px"
       flexDir="column"
       justifyContent="space-between"
@@ -90,18 +104,16 @@ const Home: NextPage = () => {
           <Table variant="simple">
             <Thead>
               <Tr>
-                {[
-                  "no",
-                  "name",
-                  "films",
-                  "species",
-                  "starships",
-                  "vehicles",
-                  "action",
-                ].map((column, idx) => {
+                {columns.map((column, idx) => {
                   return (
-                    <Th fontSize="16px" color="wool-neutral.dark" key={idx}>
-                      {column}
+                    <Th
+                      fontSize="16px"
+                      color="wool-neutral.dark"
+                      key={idx}
+                      w={column.width}
+                      wordBreak="break-word"
+                    >
+                      {column.label}
                     </Th>
                   );
                 })}
@@ -130,7 +142,25 @@ const Home: NextPage = () => {
                     <Td></Td>
                     <Td></Td>
                     <Td>
-                      <Button colorScheme="blue">Detail</Button>
+                      <Button
+                        colorScheme="blue"
+                        onClick={() =>
+                          router.push(
+                            {
+                              pathname: "/detail",
+                              query: {
+                                id: person.url.replace(
+                                  `${process.env.NEXT_PUBLIC_BASE_URL}/people/`,
+                                  ""
+                                ),
+                              },
+                            },
+                            "/detail"
+                          )
+                        }
+                      >
+                        Detail
+                      </Button>
                     </Td>
                   </Tr>
                 ))
@@ -140,7 +170,7 @@ const Home: NextPage = () => {
         </TableContainer>
       </Flex>
 
-      {renderPageNumber}
+      {isLoading && data === null ? <Skeleton h="20px" /> : renderPageNumber}
     </Flex>
   );
 };

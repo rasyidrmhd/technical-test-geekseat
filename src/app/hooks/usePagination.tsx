@@ -71,6 +71,7 @@ const usePagination = ({
         alignItems="center"
         w="full"
         justifyContent="space-between"
+        flexDir={{ base: "column", md: "row" }}
       >
         <Text>
           Showing {currentCount} data from {totalCount} data
