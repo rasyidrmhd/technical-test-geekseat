@@ -1,20 +1,7 @@
-import {
-  Button,
-  Center,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Center, Flex, Text } from "@chakra-ui/react";
 import { first, last } from "lodash";
 import React from "react";
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 const DOTS = "...";
 
@@ -121,6 +108,7 @@ const usePagination = ({
                   variant={page === currentPage ? "solid" : "outline"}
                   p="0"
                   size="sm"
+                  bg={page === currentPage ? "" : "white"}
                   colorScheme={page === currentPage ? "blue" : "gray"}
                   onClick={() => setCurrentPage(Number(page))}
                   key={idx}
