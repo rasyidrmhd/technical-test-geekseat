@@ -10,6 +10,18 @@ const breakpoints = {
 
 const theme = extendTheme({
   breakpoints,
+  styles: {
+    global: () => ({
+      body: {
+        backgroundColor: "#f8f9fa",
+        fontSize: {
+          base: "14px",
+          md: "16px",
+        },
+        color: "#26282B",
+      },
+    }),
+  },
 });
 
 export default theme;
