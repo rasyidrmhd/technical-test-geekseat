@@ -37,9 +37,8 @@ const Detail: NextPage<
     if (error) {
       showToast("Error", "error", error);
     }
-  }, [error]);
+  }, [error, showToast]);
 
-  // console.log(data);
   return (
     <Flex p="40px" w="100vw" minH="100vh" gap="20px" flexDir="column">
       <Center

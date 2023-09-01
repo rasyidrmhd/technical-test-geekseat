@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>("");
 
-  const { renderPageNumber, currentPage } = usePagination({
+  const { renderPageNumber, currentPage, setCurrentPage } = usePagination({
     currentCount: data?.results.length || 0,
     totalCount: data?.count || 0,
     siblingCount: 1,
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
       search.length ? 500 : 0
     );
     return () => clearTimeout(delay);
-  }, [currentPage, search]);
+  }, [currentPage, search, showToast]);
 
   const columns = React.useMemo(() => {
     return [
@@ -96,7 +96,10 @@ const Home: NextPage = () => {
           bg="white"
           w={{ base: "full", lg: "30%" }}
           placeholder="Search name"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
         />
         <TableContainer
           w="full"
