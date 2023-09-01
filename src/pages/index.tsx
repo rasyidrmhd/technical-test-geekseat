@@ -84,7 +84,7 @@ const Home: NextPage = () => {
 
   return (
     <Flex
-      p="40px"
+      p={{ base: " 40px 20px", lg: "40px" }}
       w="100vw"
       minH="100vh"
       gap="20px"

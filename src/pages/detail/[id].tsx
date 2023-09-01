@@ -42,7 +42,13 @@ const Detail: NextPage<
   }, [error, showToast]);
 
   return (
-    <Flex p="40px" w="100vw" minH="100vh" gap="20px" flexDir="column">
+    <Flex
+      p={{ base: "40px 20px", lg: "40px" }}
+      w="100vw"
+      minH="100vh"
+      gap="20px"
+      flexDir="column"
+    >
       <Center
         gap="4px"
         w="fit-content"
