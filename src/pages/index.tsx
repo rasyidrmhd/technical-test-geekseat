@@ -20,6 +20,7 @@ import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
 import useResponseToast from "hooks/useToast";
 import { AxiosError, AxiosResponse } from "axios";
+import ColumnFetcher from "@/components/ColumnFetcher";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -99,6 +100,7 @@ const Home: NextPage = () => {
           onChange={(e) => {
             setSearch(e.target.value);
             setCurrentPage(1);
+            setIsLoading(true);
           }}
         />
         <TableContainer
@@ -144,7 +146,12 @@ const Home: NextPage = () => {
                   <Tr key={idx}>
                     <Td>{getNumber(idx)}</Td>
                     <Td>{person.name}</Td>
-                    <Td></Td>
+                    <Td>
+                      <ColumnFetcher
+                        resource="films"
+                        endpoints={person.films}
+                      />
+                    </Td>
                     <Td></Td>
                     <Td></Td>
                     <Td></Td>
