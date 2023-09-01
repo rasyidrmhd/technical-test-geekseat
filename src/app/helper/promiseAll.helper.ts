@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from "axios";
 import axiosInstance from "config/axios";
 
-const usePromiseAll = async (resource: string, endpoints: string[]) => {
+const promiseAll = async (resource: string, endpoints: string[]) => {
   try {
     const resp = await Promise.all(
       endpoints.map(async (endpoint) => {
@@ -17,4 +17,4 @@ const usePromiseAll = async (resource: string, endpoints: string[]) => {
   }
 };
 
-export default usePromiseAll;
+export default promiseAll;

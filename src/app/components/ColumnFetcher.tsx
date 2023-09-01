@@ -1,6 +1,6 @@
 import React from "react";
 import { ListItem, Skeleton, Text, UnorderedList } from "@chakra-ui/react";
-import usePromiseAll from "hooks/usePromiseAll";
+import promiseAll from "helper/promiseAll.helper";
 
 const ColumnFetcher: React.FC<{ resource: string; endpoints: string[] }> = ({
   resource,
@@ -16,7 +16,7 @@ const ColumnFetcher: React.FC<{ resource: string; endpoints: string[] }> = ({
     const getAll = async () => {
       try {
         setIsLoading(true);
-        const resp = await usePromiseAll(resource, baseUrlRemover);
+        const resp = await promiseAll(resource, baseUrlRemover);
         setData(resp as string[]);
         setIsLoading(false);
       } catch (error) {
@@ -24,7 +24,7 @@ const ColumnFetcher: React.FC<{ resource: string; endpoints: string[] }> = ({
       }
     };
     getAll();
-  }, [endpoints, setIsLoading]);
+  }, [resource, endpoints, setIsLoading]);
 
   if (endpoints.length === 0) {
     return;
@@ -36,8 +36,8 @@ const ColumnFetcher: React.FC<{ resource: string; endpoints: string[] }> = ({
 
   return (
     <UnorderedList>
-      {data.map((e) => (
-        <ListItem>{e}</ListItem>
+      {data.map((e, idx) => (
+        <ListItem key={idx}>{e}</ListItem>
       ))}
     </UnorderedList>
   );
