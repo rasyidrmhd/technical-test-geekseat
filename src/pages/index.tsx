@@ -110,7 +110,7 @@ const Home: NextPage = () => {
           borderRadius="20px"
           h="fit-content"
         >
-          <Table variant="simple">
+          <Table variant="striped">
             <Thead>
               <Tr>
                 {columns.map((column, idx) => {
@@ -175,7 +175,7 @@ const Home: NextPage = () => {
                         colorScheme="blue"
                         onClick={() =>
                           router.push(
-                            `/detail/${person.url.replace(
+                            `/detail/${person.url.replaceAll(
                               `${process.env.NEXT_PUBLIC_BASE_URL}/people/`,
                               ""
                             )}`

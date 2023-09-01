@@ -1,6 +1,7 @@
 import React from "react";
 import { ListItem, Skeleton, Text, UnorderedList } from "@chakra-ui/react";
 import promiseAll from "helper/promiseAll.helper";
+import { first } from "lodash";
 
 const ColumnFetcher: React.FC<{ resource: string; endpoints: string[] }> = ({
   resource,
@@ -27,19 +28,21 @@ const ColumnFetcher: React.FC<{ resource: string; endpoints: string[] }> = ({
   }, [resource, endpoints, setIsLoading]);
 
   if (endpoints.length === 0) {
-    return;
+    return <Text>No data</Text>;
   }
 
   if (isLoading) {
     return <Skeleton w="full" height="20px" />;
   }
 
-  return (
+  return data.length > 1 ? (
     <UnorderedList>
       {data.map((e, idx) => (
         <ListItem key={idx}>{e}</ListItem>
       ))}
     </UnorderedList>
+  ) : (
+    <Text>{first(data)}</Text>
   );
 };
 
