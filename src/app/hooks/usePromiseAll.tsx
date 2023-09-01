@@ -1,3 +1,4 @@
+import { AxiosError, AxiosResponse } from "axios";
 import axiosInstance from "config/axios";
 
 const usePromiseAll = async (resource: string, endpoints: string[]) => {
@@ -10,7 +11,9 @@ const usePromiseAll = async (resource: string, endpoints: string[]) => {
     );
     return resp;
   } catch (error) {
-    console.log(error);
+    const { response } = error as AxiosError;
+    const { data } = response as AxiosResponse;
+    return data.message;
   }
 };
 

@@ -85,7 +85,9 @@ const usePagination = ({
             as={Button}
             bg="white"
             variant="outline"
-            isDisabled={currentPage === first(paginationRange)}
+            isDisabled={
+              currentPage === first(paginationRange) || totalCount === 0
+            }
             onClick={() => setCurrentPage(currentPage - 1)}
           >
             <ChevronLeftIcon boxSize="18px" />
@@ -128,7 +130,9 @@ const usePagination = ({
             as={Button}
             bg="white"
             variant="outline"
-            isDisabled={currentPage === last(paginationRange)}
+            isDisabled={
+              currentPage === last(paginationRange) || totalCount === 0
+            }
             onClick={() => setCurrentPage(currentPage + 1)}
           >
             <ChevronRightIcon boxSize="18px" />
