@@ -152,9 +152,24 @@ const Home: NextPage = () => {
                         endpoints={person.films}
                       />
                     </Td>
-                    <Td></Td>
-                    <Td></Td>
-                    <Td></Td>
+                    <Td>
+                      <ColumnFetcher
+                        resource="species"
+                        endpoints={person.species}
+                      />
+                    </Td>
+                    <Td>
+                      <ColumnFetcher
+                        resource="starships"
+                        endpoints={person.starships}
+                      />
+                    </Td>
+                    <Td>
+                      <ColumnFetcher
+                        resource="vehicles"
+                        endpoints={person.vehicles}
+                      />
+                    </Td>
                     <Td>
                       <Button
                         colorScheme="blue"
