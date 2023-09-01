@@ -9,7 +9,7 @@ interface LoaderProps {
 
 const Loader: React.FC<LoaderProps> = ({ size }) => {
   return (
-    <Center flexDir="column" gap="10px">
+    <Center flexDir="column" gap="10px" w="full">
       <Spinner
         color="blue.500"
         thickness="4px"

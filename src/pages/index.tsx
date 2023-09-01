@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 import axiosInstance from "../app/config/axios";
 import {
   Flex,
-  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -11,7 +10,6 @@ import {
   Th,
   Thead,
   Tr,
-  Text,
   Button,
   Input,
   Skeleton,
@@ -20,9 +18,12 @@ import { PeopleResponse } from "interfaces/people.interface";
 import usePagination from "hooks/usePagination";
 import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
+import useResponseToast from "hooks/useToast";
+import { AxiosError, AxiosResponse } from "axios";
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const { showToast } = useResponseToast();
   const [data, setData] = React.useState<PeopleResponse | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>("");
@@ -46,6 +47,9 @@ const Home: NextPage = () => {
         setData(resp.data);
         setIsLoading(false);
       } catch (error) {
+        const { response } = error as AxiosError;
+        const { data } = response as AxiosResponse;
+        showToast("Error", "error", data?.message as string);
         setIsLoading(false);
       }
     };
@@ -146,16 +150,10 @@ const Home: NextPage = () => {
                         colorScheme="blue"
                         onClick={() =>
                           router.push(
-                            {
-                              pathname: "/detail",
-                              query: {
-                                id: person.url.replace(
-                                  `${process.env.NEXT_PUBLIC_BASE_URL}/people/`,
-                                  ""
-                                ),
-                              },
-                            },
-                            "/detail"
+                            `/detail/${person.url.replace(
+                              `${process.env.NEXT_PUBLIC_BASE_URL}/people/`,
+                              ""
+                            )}`
                           )
                         }
                       >
